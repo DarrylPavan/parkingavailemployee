@@ -4,14 +4,28 @@ import React, {Component} from 'react';
 import Navigation from './components/Navigation/Navigation'
 import Availabilty from './components/Availability/Availabilty'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      
+      <React.Fragment>
         <Navigation />
-        <Availabilty />
-      </div>
+        <Router>
+          <Switch>
+            {/* <Route exact path="/" component= {ParkingLots} /> */}
+            <Route path="/availability" component= {Availabilty} />
+            {/* <Route exact path="/userInfoPage" component= {} />
+            <Route exact path="/bbbbb" component= {Home} /> */}
+          </Switch>
+        </Router>
+              
+        
+      </React.Fragment>
+
+        
+       
     );
   }
 }

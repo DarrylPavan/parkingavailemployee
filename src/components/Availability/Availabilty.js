@@ -61,7 +61,7 @@ const Availability = () => {
                         </Col>
                         <Col xs ={12} md={12} lg={3} className = "mt-3">
                             <div>Car Leave</div>
-                            <Button variant="success" size="lg">-</Button> 
+                            <Button variant="danger" size="lg">-</Button> 
                         </Col>
                     </Row>
 
