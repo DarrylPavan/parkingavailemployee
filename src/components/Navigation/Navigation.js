@@ -13,8 +13,8 @@ const Navigation = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
         
             <Nav className='mr-auto ' >
-                <Nav.Link className='linkText' href='/'><span className='linkText'>Parking Lots</span></Nav.Link>
-                    <Nav.Link href='/availability'><span className='linkText'>Availability</span></Nav.Link>
+                <Nav.Link className='linkText' href='/parkingavailemployee'><span className='linkText'>Parking Lots</span></Nav.Link>
+                    <Nav.Link href='/parkingavailemployee/availability'><span className='linkText'>Availability</span></Nav.Link>
                 </Nav>
 
                 <Nav className='ml-auto'>

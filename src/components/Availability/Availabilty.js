@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 
 const Availability = () => {
     return (
-        <Container fluid style={{backgroundColor: "sienna"}}>
+        <Container fluid style={{backgroundColor: "gray"}}>
             <Row>
                 <Col xs ={12} md={12} lg={6} className = "mt-4" >
                     <h2 className="mb-4">Select Parking Lot</h2>                 
