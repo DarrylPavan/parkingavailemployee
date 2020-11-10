@@ -5,8 +5,57 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
-const Availability = () => {
-    return (
+class Availability extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {           
+            parkingLots : null,
+            currentParkingLot: {
+                id: '',
+                name: '',
+                numSpotsAvailable: '',
+                capacity: ''
+           },
+        }
+    }
+
+    componentDidMount(props) {
+       
+        const parkingLots = [
+           {
+                id: 1,
+                name: 'Lake Louise',
+                numSpotsAvailable: 52,
+                capacity: 100
+           },
+
+           {
+                id: 2,
+                name: 'Morraine Lake',
+                numSpotsAvailable: 27,
+                capacity: 80
+           },
+
+           {
+                id: 3,
+                name: 'Overflow',
+                numSpotsAvailable: 160,
+                capacity: 200
+            },           
+
+
+       ]
+     
+
+       const currentParkingLot = parkingLots.find(parkingLot => parkingLot.id === this.props.parkingLotId );
+
+       this.setState({ parkingLots: parkingLots, currentParkingLot: currentParkingLot });
+
+    }
+    render() {
+        return (
         <Container fluid style={{backgroundColor: "gray"}}>
             <Row>
                 <Col xs ={12} md={12} lg={6} className = "mt-4" >
@@ -29,8 +78,9 @@ const Availability = () => {
                                   
                 </Col>
                 <Col xs ={12} md={12} lg={6} className = "mt-4">
-                    <h2 className="mb-4">Current Status</h2>
-                <Row>
+                <h2 className="mb-4">Current Status of {this.state.currentParkingLot.name}</h2>
+        
+        <Row>
 
                         
         <div className="d-flex flex-wrap">
@@ -70,7 +120,8 @@ const Availability = () => {
             </Row>
         </Container>
         
-    );
+        );
+    }
 }
 
 export default Availability ;

@@ -1,26 +1,7 @@
-.buttonDimensions {
-    /* height: 50px;
-    width:30%; */
-    font-size: 5.0rem;
-    padding: 5rem 5rem;
-}
 
-.btn-flat {
-    background-color: #28A745;
-    color: white;
-  }
-.btn-xxl {
-    padding: 1rem 1.5rem;
-    font-size: 1.5rem;
-}
-.btn-block {
-    padding: 10% 0; 
-    /* define values in pixels / Percentage or em. whatever suits 
-       your requirements */
-}
 .btn:hover {
     transform: scale(1.1);
-
+    font-weight: bolder;
 }
 
 

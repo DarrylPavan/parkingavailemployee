@@ -14,6 +14,8 @@ const Navigation = () => {
         
             <Nav className='mr-auto ' >
                 <Nav.Link className='linkText' href='/parkingavailemployee'><span className='linkText'>Parking Lots</span></Nav.Link>
+
+                {/* Note we will be removing this link until dev done  */}
                     <Nav.Link href='/parkingavailemployee/availability'><span className='linkText'>Availability</span></Nav.Link>
                 </Nav>
 
