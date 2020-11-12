@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
+import Override from '../Override/Override';
 
 class Availability extends React.Component {
 
@@ -11,103 +11,60 @@ class Availability extends React.Component {
         super(props);
 
         this.state = {           
-            parkingLots : null,
+            
             currentParkingLot: {
                 id: '',
                 name: '',
-                numSpotsAvailable: '',
+                numAvailableSpots: '',
                 capacity: ''
            },
         }
     }
 
-    componentDidMount(props) {
-       
-        const parkingLots = [
-           {
+    componentDidMount(props) {       
+            
+
+                const currentParkingLot = {
                 id: 1,
                 name: 'Lake Louise',
-                numSpotsAvailable: 52,
+                numAvailableSpots: 52,
                 capacity: 100
-           },
+    };
 
-           {
-                id: 2,
-                name: 'Morraine Lake',
-                numSpotsAvailable: 27,
-                capacity: 80
-           },
-
-           {
-                id: 3,
-                name: 'Overflow',
-                numSpotsAvailable: 160,
-                capacity: 200
-            },           
-
-
-       ]
-     
-
-       const currentParkingLot = parkingLots.find(parkingLot => parkingLot.id === this.props.parkingLotId );
-
-       this.setState({ parkingLots: parkingLots, currentParkingLot: currentParkingLot });
+       this.setState({ currentParkingLot: currentParkingLot });
 
     }
     render() {
         return (
-        <Container fluid style={{backgroundColor: "gray"}}>
+        <Container fluid style={{backgroundColor: '#D4F1F4'}}>
             <Row>
-                <Col xs ={12} md={12} lg={6} className = "mt-4" >
-                    <h2 className="mb-4">Select Parking Lot</h2>                 
-            <table>
-                    <tr>
-                        <td><label htmlFor='lakeLouiseCenter'>Lake Louise Center</label></td>
-                        <td><input id='lakeLouiseCenter' type="radio" name="lot" /></td>
-                    </tr>
-                    <tr>
-                        <td><label htmlFor='morraineLake'>Morraine Lake</label></td>
-                        <td><input id='morraineLake' type="radio" name="lot"/></td>
-                    </tr>
-
-                    <tr>
-                        <td><label htmlFor='overflow'>Overflow</label></td>
-                        <td><input id='overflow' type="radio" name="lot"/></td>
-                    </tr>
-        </table>  
-                                  
-                </Col>
-                <Col xs ={12} md={12} lg={6} className = "mt-4">
+                
+                <Col xs ={12} md={12} lg={12} className = "mt-4">
                 <h2 className="mb-4">Current Status of {this.state.currentParkingLot.name}</h2>
-        
-        <Row>
+            
+                
+                <Override parkingLotId = { this.state.currentParkingLot.id } />
 
-                        
-        <div className="d-flex flex-wrap">
-       
-            <div className= "mr-5">
-                <div>
-                    <label for='numOfSpotsAvailable'> Available</label>
-                </div>
-                    <div>
-                        <input type="text" id="numOfSpotsAvailable"/>            
-                    </div>
-            </div>
-  
-            <div>
-                <div>
-                    <label for='capacity'>Capacity</label>
-                </div>
-                <div>
-                    <input type="text" id="capacity" value='20' readonly/>            
-                </div>
-            </div>  
-        </div>
-                </Row>
+           {/* Custom Button CSS  */}
+           {/* background-color: #189AB4; */}
+           <style type="text/css">
+                    {`
+                    .btn-flat {
+                    background-color: orange;                   
+                    color: white;
+                    }
+
+                    .btn-xxl {
+                    padding: 2rem 2.5rem;
+                    font-size: 1.5rem;
+                    }
+                    `}
+                </style>   
+                
                     <Row className="mb-5">
                         <Col xs ={12} md={12} lg={3} className = "mt-3">
                             <div>Car Enter</div>
-                        <Button variant="success" size="lg">+</Button>    
+                        <Button variant="flat" size="xxl">+</Button>    
                         </Col>
                         <Col xs ={12} md={12} lg={3} className = "mt-3">
                             <div>Car Leave</div>

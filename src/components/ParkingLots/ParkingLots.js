@@ -12,10 +12,44 @@ class ParkingLots extends React.Component {
         super(props);
 
         this.state = {
+            parkingLots : null,
             redirect: null,
             parkingLotId: ''
         }
     }
+
+    componentDidMount(props) {
+
+
+        const parkingLots = [
+        {
+             id: 1,
+             name: 'Lake Louise',
+             numSpotsAvailable: 52,
+             capacity: 100
+        },
+
+        {
+             id: 2,
+             name: 'Morraine Lake',
+             numSpotsAvailable: 27,
+             capacity: 80
+        },
+
+        {
+             id: 3,
+             name: 'Overflow',
+             numSpotsAvailable: 160,
+             capacity: 200
+         },           
+
+
+    ]
+            this.setState({ parkingLots: parkingLots });
+
+    }
+
+
 
     redirectToAvailability = (parkingLotId) => {
         // The is sets parking lot ID in App.js
