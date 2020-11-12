@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
+import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal'
 
@@ -22,6 +22,9 @@ class Override extends React.Component {
     }
    
     componentDidMount() {
+
+        console.log('In componentDidMount', this.props.currentParkingLot);
+        // const currentParkingLot = this.props.currentParkingLot;
         const currentParkingLot = {
             id: 1,
             name: 'Lake Louise',
@@ -68,7 +71,7 @@ class Override extends React.Component {
         {
             return 'white';
         } else {
-            return 'grey';
+            return 'lightgrey';
         }
     }
 
@@ -159,33 +162,45 @@ class Override extends React.Component {
                     }
                     `}
                 </style>
-        <table>
-            <tr>
-                <td><label htmlFor='capacity' className ='ml-2'>Capacity:</label></td>
-                <td><input id='capacity' type="text" name="capacity" style={{ backgroundColor: this.setOverrideTextBoxColor('capacity')}} readOnly={ this.setOverrideTextBoxReadOnly('capacity')} value = {this.state.capacity} onChange={ this.setStateValueForField.bind(this)}/></td>
-                <td><Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('capacity')} style= {{backgroundColor: this.setOverrideButtonColor('capacity')}}>Override</Button></td>
-            </tr>
-            <tr>
-                <td><label htmlFor='numAvailableSpots'className ='ml-2'>Number of Available Spots:</label></td>
-                <td><input id='numAvailableSpots' type="text" name="numAvailableSpots" style={{ backgroundColor: this.setOverrideTextBoxColor('numAvailableSpots')}} readOnly={ this.setOverrideTextBoxReadOnly('numAvailableSpots')} value = {this.state.numAvailableSpots} onChange={ this.setStateValueForField.bind(this)}/></td>
-                <td><Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('numAvailableSpots')} style= {{backgroundColor: this.setOverrideButtonColor('numAvailableSpots')}}>Override</Button></td>
-            </tr>
+<Col>
+            <Row className='mb-2'>
+                <Col xs ={12} md={12} lg={2}><label htmlFor='capacity' className ='ml-2 mt-2'>Capacity:</label></Col>
+                <Col xs ={7} md={7} lg={5}>
+                    <div className='d-flex'>
+                        <input id='capacity' className='' type="text" name="capacity" style={{ backgroundColor: this.setOverrideTextBoxColor('capacity')}} readOnly={ this.setOverrideTextBoxReadOnly('capacity')} value = {this.state.capacity} onChange={ this.setStateValueForField.bind(this)}/>
+                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('capacity')} style= {{backgroundColor: this.setOverrideButtonColor('capacity')}}>Override</Button>
+                    </div>
+                </Col>
+            </Row>
+            <Row className='mb-2'>
+                <Col xs ={12} md={12} lg={2}><label htmlFor='numAvailableSpots'className ='ml-2 mt-2'>Number of Available Spots:</label></Col>
+                <Col xs ={7} md={7} lg={5}>
+                    <div className='d-flex'>
+                        <input id='numAvailableSpots' className='' type="text" name="numAvailableSpots" style={{ backgroundColor: this.setOverrideTextBoxColor('numAvailableSpots')}} readOnly={ this.setOverrideTextBoxReadOnly('numAvailableSpots')} value = {this.state.numAvailableSpots} onChange={ this.setStateValueForField.bind(this)}/>
+                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('numAvailableSpots')} style= {{backgroundColor: this.setOverrideButtonColor('numAvailableSpots')}}>Override</Button>
+                    </div>
+                </Col>
+            </Row>
 
-            <tr>
-                <td><label htmlFor='numOccupiedSpots' className ='ml-2'>Number of Occupied Spots:</label></td>
-                <td><input id='numOccupiedSpots' type="text" name="numOccupiedSpots" style={{ backgroundColor: this.setOverrideTextBoxColor('numOccupiedSpots')}} readOnly={ this.setOverrideTextBoxReadOnly('numOccupiedSpots')} value = {this.state.numOccupiedSpots} onChange={ this.setStateValueForField.bind(this) } /></td>
-                <td><Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('numOccupiedSpots')} style= {{backgroundColor: this.setOverrideButtonColor('numOccupiedSpots')}}>Override</Button></td>
-            </tr>
+            <Row className='mb-2'>
+                <Col xs ={12} md={12} lg={2}><label htmlFor='numOccupiedSpots' className ='ml-2 mt-2'>Number of Occupied Spots:</label></Col>
+                <Col xs ={7} md={7} lg={5}>
+                    <div className='d-flex'>
+                        <input id='numOccupiedSpots' className='' type="text" name="numOccupiedSpots" style={{ backgroundColor: this.setOverrideTextBoxColor('numOccupiedSpots')}} readOnly={ this.setOverrideTextBoxReadOnly('numOccupiedSpots')} value = {this.state.numOccupiedSpots} onChange={ this.setStateValueForField.bind(this) } />
+                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.engageOverride('numOccupiedSpots')} style= {{backgroundColor: this.setOverrideButtonColor('numOccupiedSpots')}}>Override</Button>
+                    </div>
+                </Col>
+            </Row>
 
-            <tr>
-                <td><label htmlFor='ResetSetting' className ='ml-2'>Save above Settings?</label></td>
-                <td><Button variant="flat" size="lg" className ='ml-2' onClick={this.openSaveConfirmation}>Save</Button></td>
-            </tr>
-            <tr>
-                <td><label htmlFor='saveReset' className ='ml-2'>Reset to Defaults?</label></td>
-                <td><Button variant="flat" size="lg" className ='ml-2' onClick={this.openResetConfirmation}>Reset</Button></td>
-            </tr>            
-        </table> 
+            <Row className='mt-4'>
+                <Col xs ={12} md={12} lg={12}>
+                    <div className='d-flex'>
+                        <Button variant="flat" size="lg" className ='ml-5' onClick={this.openSaveConfirmation}>Save</Button>
+                        <Button variant="flat" size="lg" className ='ml-5' onClick={this.openResetConfirmation}>Reset</Button>                 
+                    </div>
+                 </Col>
+            </Row>
+            </Col>
         <Modal show={this.state.showSaveConfirmation} onHide={this.closeSaveConfirmation}>
           <Modal.Header closeButton>
             <Modal.Title>Save Changes</Modal.Title>
