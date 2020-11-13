@@ -6,7 +6,7 @@ import Availability from './components/Availability/Availability'
 import ParkingLots from './components/ParkingLots/ParkingLots'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import SignIn from './components/SignIn/SignIn'
 
 class App extends Component {
   constructor() {
@@ -32,6 +32,8 @@ class App extends Component {
         <Router >
           <Switch>
           <Route exact path="/parkingavailemployee" render={props => 
+              (<SignIn {...props} onParkingLotChange = {this.onParkingLotChange} />)}/>
+          <Route path="/parkingavailemployee/parkinglots" render={props => 
               (<ParkingLots {...props} onParkingLotChange = {this.onParkingLotChange} />)}/>
             {
               this.state.parkingLotId > 0 &&

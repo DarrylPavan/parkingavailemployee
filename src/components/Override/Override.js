@@ -40,6 +40,7 @@ class Override extends React.Component {
         if (this.state.overrideField === '') {
             console.log(overrideField);
             this.setState({ overrideField: overrideField });
+            //the else if is to reset back previous state
         } else if (this.state.overrideField === overrideField) {
             if (overrideField === 'capacity')
             {
@@ -78,6 +79,7 @@ class Override extends React.Component {
     setOverrideTextBoxReadOnly = (overrideField) => {
         if (this.state.overrideField === overrideField)
         {
+            //can only type if false
             return false;
         } else {
             return true;
