@@ -22,9 +22,9 @@ class App extends Component {
       refreshData: 0
     }
   }
+
   componentDidMount()
   {
-    
     document.body.style = 'background: #75E6DA;';
   }
 
@@ -33,12 +33,12 @@ class App extends Component {
   }
 
   setSignIn = (isSignedIn) => {
-    window.localStorage.setItem('isSignedIn',true)
-    this.setState({isSignedIn: true });
+    // window.localStorage.setItem('isSignedIn',isSignedIn)
+    this.setState({isSignedIn: isSignedIn });
   }
 
   logout = () => {
-    window.localStorage.removeItem('isSignedIn')
+    // window.localStorage.removeItem('isSignedIn')
     this.setState({isSignedIn: false });
   }
 
@@ -50,41 +50,51 @@ class App extends Component {
     }});
   }
 
-  refreshState = () => {
-    this.setState({refreshData: this.state.refreshData + 1});
-  }
+  // refreshState = () => {
+  //   this.setState({refreshData: this.state.refreshData + 1});
+  // }
 
   render() {
     return (
       <React.Fragment>
-     
-        <Router >
-        {this.state.isSignedIn && 
-        
-        <Navigation logout={ this.logout } refreshState={ this.refreshState}/>
-        }
+         <Router >
+          {
+            this.state.isSignedIn && 
 
-
+            <Navigation logout={ this.logout }/>
+          }     
+                   
           <Switch>
- 
-          <Route exact path="/parkingavailemployee" render={props => 
-              (<SignIn {...props} setSignIn= {this.setSignIn} loadUser = {this.loadUser} />)}/>
-           {this.state.isSignedIn && 
-          <Route path="/parkingavailemployee/parkinglots" render={props => 
-              (<ParkingLots {...props} onParkingLotChange = {this.onParkingLotChange} userName = {this.state.user.name} />)}/>
+
+            <Route exact path="/parkingavailemployee" 
+              render={props => 
+                (<SignIn {...props} 
+                  setSignIn= {this.setSignIn} 
+                  loadUser = {this.loadUser} />)}/>
+
+            {
+              this.state.isSignedIn && 
+
+              <Route path="/parkingavailemployee/parkinglots" 
+                render={props => 
+                (<ParkingLots {...props}
+                  onParkingLotChange = {this.onParkingLotChange}
+                  userName = {this.state.user.name} />)}/>
             }
+
             {
               this.state.parkingLotId > 0 && this.state.isSignedIn && 
 
-            <Route path="/parkingavailemployee/availability" render={props => 
-              (<Availability {...props} parkingLotId = {this.state.parkingLotId} />)}/>
+              <Route path="/parkingavailemployee/availability" 
+                render={props => 
+                (<Availability {...props} 
+                  parkingLotId = {this.state.parkingLotId} />)}/>
             }
+
             {/* <Route exact path="/userInfoPage" component= {} />
             <Route exact path="/bbbbb" component= {Home} /> */}
           </Switch>
         </Router>
-              
-        
       </React.Fragment>            
        
     );

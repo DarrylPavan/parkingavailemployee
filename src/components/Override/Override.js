@@ -10,114 +10,21 @@ class Override extends React.Component {
         super(props);
 
         this.state = {
-            // parkingLotId: props.parkingLotId,
-            // overrideField: '',
-            // currentParkingLot: '',
-            // capacity: '',
-            // numOccupiedSpots: '',
-            // numAvailableSpots: '',
             showSaveConfirmation: false,
             showResetConfirmation: false
         }
     }
    
     componentDidMount() {
-
-        // console.log('In componentDidMount', this.props.currentParkingLot);
-        // const currentParkingLot = this.props.currentParkingLot;
-        // const currentParkingLot = {
-        //     id: 1,
-        //     name: 'Lake Louise',
-        //     numAvailableSpots: 52,
-        //     capacity: 100
-        // };
-
-        // this.setState({ currentParkingLot: currentParkingLot, capacity: currentParkingLot.capacity, numAvailableSpots: currentParkingLot.numAvailableSpots, numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots });        
     }
-
-    // engageOverride = (overrideField) =>{
-
-    //     if (this.state.overrideField === '') {
-    //         console.log(overrideField);
-    //         this.setState({ overrideField: overrideField });
-    //         //the else if is to reset back previous state
-    //     } else if (this.state.overrideField === overrideField) {
-    //         if (overrideField === 'capacity')
-    //         {
-    //             this.setState({capacity: this.state.currentParkingLot.capacity});
-    //         }
-    //         else if (overrideField === 'numOccupiedSpots') {
-    //             this.setState({numOccupiedSpots: this.state.currentParkingLot.capacity - this.state.currentParkingLot.numAvailableSpots});
-    //         }
-    //         else if (overrideField === 'numAvailableSpots') {
-    //             this.setState({numAvailableSpots: this.state.currentParkingLot.numAvailableSpots});
-    //         }
-
-
-    //         this.setState({ overrideField: ''});
-    //     }
-    // }
-
-    // setOverrideButtonColor = (overrideField) => {
-    //     if (this.state.overrideField === overrideField)
-    //     {
-    //         return 'red';
-    //     } else {
-    //         return '#189AB4';
-    //     }
-    // }
-
-    // setOverrideTextBoxColor = (overrideField) => {
-    //     if (this.state.overrideField === overrideField)
-    //     {
-    //         return 'white';
-    //     } else {
-    //         return 'lightgrey';
-    //     }
-    // }
-
-    // setOverrideTextBoxReadOnly = (overrideField) => {
-    //     if (this.state.overrideField === overrideField)
-    //     {
-    //         //can only type if false
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
-
-    // setStateValueForField = (event) => {
-    //     console.log(event.target.id);
-    //     if (event.target.id === 'capacity')
-    //     {
-    //         this.setState({capacity: event.target.value});
-    //     }
-    //     else if (event.target.id === 'numOccupiedSpots') {
-    //         this.setState({numOccupiedSpots: event.target.value});
-    //     }
-    //     else if (event.target.id === 'numAvailableSpots') {
-    //         this.setState({numAvailableSpots: event.target.value});
-    //     }
-    // }
 
     openSaveConfirmation = () => {
-        console.log('Open modal');
         this.setState({ showSaveConfirmation: true });
     }
+
     closeSaveConfirmation = () => this.setState({ showSaveConfirmation: false });
     
-    saveChanges = () => {
-        // // Call /saveParkingLot passing id by query string, and only field that changed in body, PATCH, returns currentParkingLot
-
-        // const currentParkingLot = {
-        //     id: 1,
-        //     name: 'Lake Louise',
-        //     numAvailableSpots: 152,
-        //     capacity: 200
-        // }; 
-        
-        // this.setState({capacity: currentParkingLot.capacity, numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, numAvailableSpots: currentParkingLot.numAvailableSpots});
-
+    onSaveChanges = () => {
         this.props.saveParkingLotChanges();
 
         this.closeSaveConfirmation();
@@ -130,16 +37,6 @@ class Override extends React.Component {
     closeResetConfirmation = () => this.setState({ showResetConfirmation: false });
 
     resetToDefault = () => {
-        // //Call reset api, and get a parking lot object
-        // const currentParkingLot = {
-        //     id: 1,
-        //     name: 'Lake Louise',
-        //     numAvailableSpots: 100,
-        //     capacity: 100
-        // }; 
-        
-        // this.setState({capacity: currentParkingLot.capacity, numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, numAvailableSpots: currentParkingLot.numAvailableSpots, overrideField: ''});
-
         this.props.resetParkingLot();
         this.closeResetConfirmation();       
     }
@@ -147,15 +44,11 @@ class Override extends React.Component {
     render() {
 
        return(
+        <Row>
 
-
-        
-    
-    <Row>
-
-        {/* Custom Button CSS  */}
-        <style type="text/css">
-                    {`
+            {/* Custom Button CSS  */}
+            <style type="text/css">
+                {`
                     .btn-flat {
                     background-color: #189AB4;
                     color: white;
@@ -165,103 +58,112 @@ class Override extends React.Component {
                     padding: 1rem 1.5rem;
                     font-size: 1.5rem;
                     }
-                    `}
-                </style>
-<Col>
-            <Row className='mb-2'>
-                <Col xs ={12} md={12} lg={2}><label htmlFor='capacity' className ='ml-2 mt-2'>Capacity:</label></Col>
-                <Col xs ={7} md={7} lg={5}>
-                    <div className='d-flex'>
-                        <input id='capacity' className='' type="text" name="capacity" style={{ backgroundColor: this.props.setOverrideTextBoxColor('capacity')}} readOnly={ this.props.setOverrideTextBoxReadOnly('capacity')} value = {this.props.capacity} onChange={ this.props.setStateValueForField.bind(this)}/>
-                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.props.engageOverride('capacity')} style= {{backgroundColor: this.props.setOverrideButtonColor('capacity')}}>Override</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row className='mb-2'>
-                <Col xs ={12} md={12} lg={2}><label htmlFor='numAvailableSpots'className ='ml-2 mt-2'>Number of Available Spots:</label></Col>
-                <Col xs ={7} md={7} lg={5}>
-                    <div className='d-flex'>
-                        <input id='numAvailableSpots' className='' type="text" name="numAvailableSpots" style={{ backgroundColor: this.props.setOverrideTextBoxColor('numAvailableSpots')}} readOnly={ this.props.setOverrideTextBoxReadOnly('numAvailableSpots')} value = {this.props.numAvailableSpots} onChange={ this.props.setStateValueForField.bind(this)}/>
-                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.props.engageOverride('numAvailableSpots')} style= {{backgroundColor: this.props.setOverrideButtonColor('numAvailableSpots')}}>Override</Button>
-                    </div>
-                </Col>
-            </Row>
+                `}
+            </style>
 
-            <Row className='mb-2'>
-                <Col xs ={12} md={12} lg={2}><label htmlFor='numOccupiedSpots' className ='ml-2 mt-2'>Number of Occupied Spots:</label></Col>
-                <Col xs ={7} md={7} lg={5}>
-                    <div className='d-flex'>
-                        <input id='numOccupiedSpots' className='' type="text" name="numOccupiedSpots" style={{ backgroundColor: this.props.setOverrideTextBoxColor('numOccupiedSpots')}} readOnly={ this.props.setOverrideTextBoxReadOnly('numOccupiedSpots')} value = {this.props.numOccupiedSpots} onChange={ this.props.setStateValueForField.bind(this) } />
-                        <Button variant="flat" size="lg" className ='ml-2' onClick={ () => this.props.engageOverride('numOccupiedSpots')} style= {{backgroundColor: this.props.setOverrideButtonColor('numOccupiedSpots')}}>Override</Button>
-                    </div>
-                </Col>
-            </Row>
+            <Col>
+                <Row className='mb-2'>
+                    <Col xs ={12} md={12} lg={2}><label htmlFor='capacity' className ='ml-2 mt-2'>Capacity:</label></Col>
+                    <Col xs ={7} md={7} lg={5}>
+                        <div className='d-flex'>
+                            <input id='capacity' 
+                                className='' 
+                                type="text" 
+                                name="capacity" 
+                                style={{ backgroundColor: this.props.getOverrideTextBoxColor('capacity')}} 
+                                readOnly={ this.props.getOverrideTextBoxReadOnly('capacity')}
+                                value = {this.props.capacity}
+                                onChange={ this.props.setStateValueForOverrideField.bind(this)}/>
+                            <Button variant="flat" 
+                                size="lg" 
+                                className ='ml-2' 
+                                onClick={ () => this.props.engageOverride('capacity')} 
+                                style= {{backgroundColor: this.props.getOverrideButtonColor('capacity')}}>Override</Button>
+                        </div>
+                    </Col>
+                </Row>
+                <Row className='mb-2'>
+                    <Col xs ={12} md={12} lg={2}><label htmlFor='numAvailableSpots'className ='ml-2 mt-2'>Number of Available Spots:</label></Col>
+                    <Col xs ={7} md={7} lg={5}>
+                        <div className='d-flex'>
+                            <input id='numAvailableSpots' 
+                                className='' 
+                                type="text" 
+                                name="numAvailableSpots" 
+                                style={{ backgroundColor: this.props.getOverrideTextBoxColor('numAvailableSpots')}} 
+                                readOnly={ this.props.getOverrideTextBoxReadOnly('numAvailableSpots')} 
+                                value = {this.props.numAvailableSpots} 
+                                onChange={ this.props.setStateValueForOverrideField.bind(this)}/>
+                            <Button variant="flat" 
+                                size="lg" 
+                                className ='ml-2' 
+                                onClick={ () => this.props.engageOverride('numAvailableSpots')} 
+                                style= {{backgroundColor: this.props.getOverrideButtonColor('numAvailableSpots')}}>Override</Button>
+                        </div>
+                    </Col>
+                </Row>
 
-            <Row className='mt-4'>
-                <Col xs ={12} md={12} lg={12}>
-                    <div className='d-flex'>
-                        <Button variant="flat" size="lg" className ='ml-5' onClick={this.openSaveConfirmation}>Save</Button>
-                        <Button variant="flat" size="lg" className ='ml-5' onClick={this.openResetConfirmation}>Reset</Button>                 
-                    </div>
-                 </Col>
-            </Row>
+                <Row className='mb-2'>
+                    <Col xs ={12} md={12} lg={2}><label htmlFor='numOccupiedSpots' className ='ml-2 mt-2'>Number of Occupied Spots:</label></Col>
+                    <Col xs ={7} md={7} lg={5}>
+                        <div className='d-flex'>
+                            <input id='numOccupiedSpots' 
+                                className='' 
+                                type="text" 
+                                name="numOccupiedSpots" 
+                                style={{ backgroundColor: this.props.getOverrideTextBoxColor('numOccupiedSpots')}} 
+                                readOnly={ this.props.getOverrideTextBoxReadOnly('numOccupiedSpots')} 
+                                value = {this.props.numOccupiedSpots} 
+                                onChange={ this.props.setStateValueForOverrideField.bind(this) } />
+                            <Button variant="flat" 
+                                size="lg" 
+                                className ='ml-2' 
+                                onClick={ () => this.props.engageOverride('numOccupiedSpots')} 
+                                style= {{backgroundColor: this.props.getOverrideButtonColor('numOccupiedSpots')}}>Override</Button>
+                        </div>
+                    </Col>
+                </Row>
+
+                <Row className='mt-4'>
+                    <Col xs ={12} md={12} lg={12}>
+                        <div className='d-flex'>
+                            <Button variant="flat" size="lg" className ='ml-5' onClick={this.openSaveConfirmation}>Save</Button>
+                            <Button variant="flat" size="lg" className ='ml-5' onClick={this.openResetConfirmation}>Reset</Button>                 
+                        </div>
+                    </Col>
+                </Row>
             </Col>
-        <Modal show={this.state.showSaveConfirmation} onHide={this.closeSaveConfirmation}>
-          <Modal.Header closeButton>
-            <Modal.Title>Save Changes</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Do you wish to keep these changes?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.saveChanges}>
-              Yes 
-            </Button>
-            <Button variant="secondary" onClick={this.closeSaveConfirmation}>
-              Cancel 
-            </Button>
-          </Modal.Footer>
-        </Modal> 
-        <Modal show={this.state.showResetConfirmation} onHide={this.closeResetConfirmation}>
-          <Modal.Header closeButton>
-            <Modal.Title>Reset to Default</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Do you wish to reset the values to default?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.resetToDefault}>
-              Yes 
-            </Button>
-            <Button variant="secondary" onClick={this.closeResetConfirmation}>
-              Cancel 
-            </Button>
-          </Modal.Footer>
-        </Modal>            
+            <Modal show={this.state.showSaveConfirmation} onHide={this.closeSaveConfirmation}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Save Changes</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Do you wish to keep these changes?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.onSaveChanges}>
+                    Yes 
+                    </Button>
+                    <Button variant="secondary" onClick={this.closeSaveConfirmation}>
+                    Cancel 
+                    </Button>
+                </Modal.Footer>
+            </Modal> 
 
-
-        {/* <div className="d-flex flex-wrap">
-        
-            <div className= "mr-5">
-                <div>
-                    <label for='numOfSpotsAvailable'> Available</label>
-                </div>
-                    <div>
-                        <input type="text" id="numOfSpotsAvailable"/>            
-                    </div>
-            </div>
-
-            <div>
-                <div>
-                    <label for='capacity'>Capacity</label>
-                </div>
-                <div>
-                    <input type="text" id="capacity" value='20' readonly/>            
-                </div>
-            </div>  
-
-        </div> */}
-    </Row>
-    );
-
+            <Modal show={this.state.showResetConfirmation} onHide={this.closeResetConfirmation}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Reset to Default</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Do you wish to reset the values to default?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.resetToDefault}>
+                    Yes 
+                    </Button>
+                    <Button variant="secondary" onClick={this.closeResetConfirmation}>
+                    Cancel 
+                    </Button>
+                </Modal.Footer>
+            </Modal>            
+        </Row>);
     }
-
 }
 
 export default Override ;

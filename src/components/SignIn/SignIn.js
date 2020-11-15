@@ -18,23 +18,20 @@ class SignIn extends React.Component {
         }  
     }
 
+    //On change attribute for email text box
     onEmailChange = (event) => {
-        console.log(event.target.value); 
-        //On change attribute for email check box
+
         this.setState({email: event.target.value});            
     }
 
+    //On password attribute for password text box
     onPasswordChange = (event) => {
-        console.log(event.target.value); 
-        
-        //On password attribute for password check box
         this.setState({password: event.target.value});
     }
     
     onSubmitSignIn = (event) => {
-        console.log("got there");
-        // Call /signin api returns a user object  
         // Call/signin passing email address and password in the request body, POST, returns a user object.
+
         const user = {
             id: 1,
             name: 'Bob',
@@ -42,13 +39,10 @@ class SignIn extends React.Component {
         }
         this.props.loadUser(user);
         this.props.setSignIn(true);
-        console.log('onSubmitSignIn', window.localStorage.getItem('isSignedIn')) ;
-        // window.localStorage.setItem('isSignedIn',true);
         this.redirectToParkingLots();
     }
 
-    redirectToParkingLots = () => {
-               
+    redirectToParkingLots = () => {            
         // Changing the value redirect         
         this.setState({ redirect: "/parkingavailemployee/parkinglots"});
     } 
@@ -56,28 +50,29 @@ class SignIn extends React.Component {
     render () {
         if (this.state.redirect) {
             return  <Redirect to={{ pathname: this.state.redirect }}/>
-          } 
+        }
+
         return (
         
-    <Container fluid style={{backgroundColor: '#D4F1F4'}}>
-        <Row>
-            <Col xs ={7} md={4} lg={4} className = "mt-2 mb-3">
-          <Form>
-            <Form.Group controlId="formBasicEmail">
+            <Container fluid style={{backgroundColor: '#D4F1F4'}}>
+                <Row>
+                    <Col xs ={7} md={4} lg={4} className = "mt-2 mb-3">
+                        <Form>
+                            <Form.Group controlId="formBasicEmail">
 
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" onChange = {this.onEmailChange}/>
-            </Form.Group>
+                            <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" onChange = {this.onEmailChange}/>
+                            </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" onChange = {this.onPasswordChange}/>
-            </Form.Group>
-                <Button variant="primary" onClick = {this.onSubmitSignIn}>Submit</Button>
-          </Form>
-            </Col>
-        </Row>
-    </Container>
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" onChange = {this.onPasswordChange}/>
+                            </Form.Group>
+                            <Button variant="primary" onClick = {this.onSubmitSignIn}>Sign In</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         );
 
     }
