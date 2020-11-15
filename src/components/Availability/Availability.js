@@ -184,7 +184,7 @@ class Availability extends React.Component {
             <Container fluid style={{backgroundColor: '#D4F1F4'}}>
                 <Row>                  
                     <Col xs ={12} md={12} lg={12} className = "mt-4">
-                        <h2 className="mb-2">{this.state.currentParkingLot.name} Parking Lot</h2>
+                        <h2 className="mb-3">{this.state.currentParkingLot.name} Parking Lot</h2>
                 
                     
                         { 
@@ -221,8 +221,8 @@ class Availability extends React.Component {
                         </style>   
                     
                         <Row className="mt-2 mb-2">
-                            <Col xs ={12} md={12} lg={3} className = "mt-3">
-                                <div className='d-flex'>
+                            <Col xs ={12} md={4} lg={6} className = "mt-3">
+                                <div className='d-flex justify-content-center'>
                                     <Button variant="success" 
                                         size="xxl" 
                                         onClick={this.decrementNumAvailableSpots}>+</Button> 

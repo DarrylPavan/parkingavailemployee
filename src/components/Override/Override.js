@@ -125,9 +125,9 @@ class Override extends React.Component {
                 </Row>
 
                 <Row className='mt-4'>
-                    <Col xs ={12} md={12} lg={12}>
-                        <div className='d-flex'>
-                            <Button variant="flat" size="lg" className ='ml-5' onClick={this.openSaveConfirmation}>Save</Button>
+                    <Col xs ={12} md={4} lg={6}>
+                        <div className='d-flex justify-content-center'>
+                            <Button variant="flat" size="lg" onClick={this.openSaveConfirmation}>Save</Button>
                             <Button variant="flat" size="lg" className ='ml-5' onClick={this.openResetConfirmation}>Reset</Button>                 
                         </div>
                     </Col>

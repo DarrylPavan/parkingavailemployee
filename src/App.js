@@ -5,7 +5,7 @@ import Navigation from './components/Navigation/Navigation'
 import Availability from './components/Availability/Availability'
 import ParkingLots from './components/ParkingLots/ParkingLots'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import SignIn from './components/SignIn/SignIn'
 
 class App extends Component {
@@ -50,10 +50,6 @@ class App extends Component {
     }});
   }
 
-  // refreshState = () => {
-  //   this.setState({refreshData: this.state.refreshData + 1});
-  // }
-
   render() {
     return (
       <React.Fragment>
@@ -72,27 +68,20 @@ class App extends Component {
                   setSignIn= {this.setSignIn} 
                   loadUser = {this.loadUser} />)}/>
 
-            {
-              this.state.isSignedIn && 
-
               <Route path="/parkingavailemployee/parkinglots" 
                 render={props => 
-                (<ParkingLots {...props}
+                 this.state.isSignedIn? 
+                  <ParkingLots {...props}
                   onParkingLotChange = {this.onParkingLotChange}
-                  userName = {this.state.user.name} />)}/>
-            }
-
-            {
-              this.state.parkingLotId > 0 && this.state.isSignedIn && 
+                  userName = {this.state.user.name} /> :
+                  <Redirect to={{ pathname: '/parkingavailemployee' }} />}/> 
 
               <Route path="/parkingavailemployee/availability" 
                 render={props => 
-                (<Availability {...props} 
-                  parkingLotId = {this.state.parkingLotId} />)}/>
-            }
-
-            {/* <Route exact path="/userInfoPage" component= {} />
-            <Route exact path="/bbbbb" component= {Home} /> */}
+                  this.state.parkingLotId > 0 && this.state.isSignedIn ? 
+                  <Availability {...props} parkingLotId = {this.state.parkingLotId} />:
+                  <Redirect to={{ pathname: '/parkingavailemployee/parkinglots' }} />
+                }/>
           </Switch>
         </Router>
       </React.Fragment>            

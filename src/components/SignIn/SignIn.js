@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Redirect from 'react-router-dom/Redirect';
+import './SignIn.css';
 
 class SignIn extends React.Component {
    constructor (props) {
@@ -13,7 +14,8 @@ class SignIn extends React.Component {
         this.state = {
             email: '',
             password: '',
-            redirect: null
+            redirect: null,
+            signInMessage: ''
 
         }  
     }
@@ -32,14 +34,26 @@ class SignIn extends React.Component {
     onSubmitSignIn = (event) => {
         // Call/signin passing email address and password in the request body, POST, returns a user object.
 
+
         const user = {
             id: 1,
             name: 'Bob',
             email: 'rocketman@gmail.com'
         }
-        this.props.loadUser(user);
-        this.props.setSignIn(true);
-        this.redirectToParkingLots();
+        // const user = null;
+
+        if (user) {
+            this.props.loadUser(user);
+            this.props.setSignIn(true);
+            this.setState({signInMessage:''})
+            this.redirectToParkingLots();
+
+        }
+        else {
+            this.props.setSignIn(false);
+            this.setState({signInMessage:'The user email and/or password is invalid'})
+        }
+        
     }
 
     redirectToParkingLots = () => {            
@@ -56,7 +70,15 @@ class SignIn extends React.Component {
         
             <Container fluid style={{backgroundColor: '#D4F1F4'}}>
                 <Row>
-                    <Col xs ={7} md={4} lg={4} className = "mt-2 mb-3">
+                <Col>
+                    <Row>
+                        <Col className= "mt-2" lg={12}>
+                            <div className = "signInMessage">{this.state.signInMessage}</div>
+                        </Col>
+                    </Row>
+                    <Row>
+                    <Col xs ={7} md={4} lg={4} className = "mt-2 mb-3">                  
+                                                        
                         <Form>
                             <Form.Group controlId="formBasicEmail">
 
@@ -71,7 +93,10 @@ class SignIn extends React.Component {
                             <Button variant="primary" onClick = {this.onSubmitSignIn}>Sign In</Button>
                         </Form>
                     </Col>
+                    </Row>
+                </Col>
                 </Row>
+                
             </Container>
         );
 
