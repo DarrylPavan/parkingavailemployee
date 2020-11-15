@@ -4,20 +4,18 @@ import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Redirect from 'react-router-dom/Redirect';
 
 class SignIn extends React.Component {
-    constructor (props) {
+   constructor (props) {
         super(props);
     
         this.state = {
             email: '',
             password: '',
+            redirect: null
 
-        }
-
-        
-
-
+        }  
     }
 
     onEmailChange = (event) => {
@@ -35,11 +33,30 @@ class SignIn extends React.Component {
     
     onSubmitSignIn = (event) => {
         console.log("got there");
-        // Call /signin api returns a user object 
-        
+        // Call /signin api returns a user object  
+        // Call/signin passing email address and password in the request body, POST, returns a user object.
+        const user = {
+            id: 1,
+            name: 'Bob',
+            email: 'rocketman@gmail.com'
+        }
+        this.props.loadUser(user);
+        this.props.setSignIn(true);
+        console.log('onSubmitSignIn', window.localStorage.getItem('isSignedIn')) ;
+        // window.localStorage.setItem('isSignedIn',true);
+        this.redirectToParkingLots();
     }
 
+    redirectToParkingLots = () => {
+               
+        // Changing the value redirect         
+        this.setState({ redirect: "/parkingavailemployee/parkinglots"});
+    } 
+
     render () {
+        if (this.state.redirect) {
+            return  <Redirect to={{ pathname: this.state.redirect }}/>
+          } 
         return (
         
     <Container fluid style={{backgroundColor: '#D4F1F4'}}>

@@ -12,7 +12,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      parkingLotId: ''
+      parkingLotId: '',
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: ''
+      },
+      refreshData: 0
     }
   }
   componentDidMount()
@@ -25,18 +32,49 @@ class App extends Component {
     this.setState({parkingLotId: parkingLotId});
   }
 
+  setSignIn = (isSignedIn) => {
+    window.localStorage.setItem('isSignedIn',true)
+    this.setState({isSignedIn: true });
+  }
+
+  logout = () => {
+    window.localStorage.removeItem('isSignedIn')
+    this.setState({isSignedIn: false });
+  }
+
+  loadUser = (user) => {
+    this.setState({user: {
+      id: user.id,
+      name: user.name,
+      email: user.email
+    }});
+  }
+
+  refreshState = () => {
+    this.setState({refreshData: this.state.refreshData + 1});
+  }
+
   render() {
     return (
       <React.Fragment>
-        <Navigation />
+     
         <Router >
+        {this.state.isSignedIn && 
+        
+        <Navigation logout={ this.logout } refreshState={ this.refreshState}/>
+        }
+
+
           <Switch>
+ 
           <Route exact path="/parkingavailemployee" render={props => 
-              (<SignIn {...props} onParkingLotChange = {this.onParkingLotChange} />)}/>
+              (<SignIn {...props} setSignIn= {this.setSignIn} loadUser = {this.loadUser} />)}/>
+           {this.state.isSignedIn && 
           <Route path="/parkingavailemployee/parkinglots" render={props => 
-              (<ParkingLots {...props} onParkingLotChange = {this.onParkingLotChange} />)}/>
+              (<ParkingLots {...props} onParkingLotChange = {this.onParkingLotChange} userName = {this.state.user.name} />)}/>
+            }
             {
-              this.state.parkingLotId > 0 &&
+              this.state.parkingLotId > 0 && this.state.isSignedIn && 
 
             <Route path="/parkingavailemployee/availability" render={props => 
               (<Availability {...props} parkingLotId = {this.state.parkingLotId} />)}/>
