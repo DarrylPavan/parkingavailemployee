@@ -33,9 +33,40 @@ class SignIn extends React.Component {
     
     onSubmitSignIn = (event) => {
         // Call/signin passing email address and password in the request body, POST, returns a user object.
+        const postOptions = {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        }
+
+        fetch('http://localhost:8082/signin', postOptions)
+            .then(response => response.json())
+            .then(user =>{
+                if (user.id) {
+                    this.props.loadUser(user);
+                    this.props.setSignIn(true);
+                    this.setState({signInMessage:''})
+                    this.redirectToParkingLots();
+        
+                }
+                /* else {
+                    this.props.setSignIn(false);
+                    this.setState({signInMessage:'The user email and/or password is invalid'})
+                } */  
+            })
+            .catch(err => {
+                this.props.setSignIn(false);
+                    this.setState({signInMessage:'The user email and/or password is invalid'})
+
+            })
+
+        
 
 
-        const user = {
+        /* const user = {
             id: 1,
             name: 'Bob',
             email: 'rocketman@gmail.com'
@@ -52,7 +83,7 @@ class SignIn extends React.Component {
         else {
             this.props.setSignIn(false);
             this.setState({signInMessage:'The user email and/or password is invalid'})
-        }
+        } */
         
     }
 
