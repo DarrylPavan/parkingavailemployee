@@ -147,35 +147,42 @@ class Availability extends React.Component {
     }
 
     incrementNumAvailableSpots = () => {
-        //Call /incrementNumAvailableSpots passing id in query string, PATCH, returns an updated parking lot object
-   
-        console.log('In incrementNumAvailableSpots')
-
-        const currentParkingLot = {
-            id: 1,
-            name: 'Lake Louise',
-            numAvailableSpots: 53,
-            capacity: 100
-        };
-
-        this.setState({ currentParkingLot: currentParkingLot, 
-                    numAvailableSpots: currentParkingLot.numAvailableSpots, 
-                    numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots });            
+        //Call /decrementstallsoccupied passing id in query string, PATCH, returns an updated parking lot object
+        const patchOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+        }
+        fetch(`http://localhost:8082/decrementstallsoccupied?id=${this.state.parkingLotId}`,patchOptions)
+            .then(response => response.json())
+            .then(currentParkingLot => {
+                this.setState({ currentParkingLot: currentParkingLot, 
+                    capacity: currentParkingLot.capacity,
+                    numAvailableSpots: currentParkingLot.capacity - currentParkingLot.stallsOccupied, 
+                    numOccupiedSpots: currentParkingLot.stallsOccupied });    
+            })
+             
     }
 
     decrementNumAvailableSpots = () => {
-        //Call /decrementNumAvailableSpots passing id in query string, PATCH, returns an updated parking lot object
-   
-        const currentParkingLot = {
-            id: 1,
-            name: 'Lake Louise',
-            numAvailableSpots: 52,
-            capacity: 100
-        };
-
-        this.setState({ currentParkingLot: currentParkingLot, 
-                        numAvailableSpots: currentParkingLot.numAvailableSpots, 
-                        numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots });        
+        //Call /incrementstallsoccupied passing id in query string, PATCH, returns an updated parking lot object
+        const patchOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+        }
+        fetch(`http://localhost:8082/incrementstallsoccupied?id=${this.state.parkingLotId}`,patchOptions)
+            .then(response => response.json())
+            .then(currentParkingLot => {
+                this.setState({ currentParkingLot: currentParkingLot, 
+                    capacity: currentParkingLot.capacity,
+                    numAvailableSpots: currentParkingLot.capacity - currentParkingLot.stallsOccupied, 
+                    numOccupiedSpots: currentParkingLot.stallsOccupied });    
+            })        
 
     }
 
