@@ -19,8 +19,15 @@ class ParkingLots extends React.Component {
 
     componentDidMount(props) {
         // Call /parkingLots, GET, returns array of parking lot objects
+        fetch('http://localhost:8082/parkinglots')
+            .then(response => response.json())
+            .then(parkingLots => {
+                this.setState({ parkingLots: parkingLots });
+            
+            });
 
-        const parkingLots = [
+
+        /* const parkingLots = [
             {
                 id: 1,
                 name: 'Lake Louise',
@@ -41,9 +48,9 @@ class ParkingLots extends React.Component {
                 numSpotsAvailable: 160,
                 capacity: 200
             },           
-        ]
+        ] */
 
-        this.setState({ parkingLots: parkingLots });
+        // this.setState({ parkingLots: parkingLots });
     }
 
     redirectToAvailability = (parkingLotId) => {

@@ -15,7 +15,7 @@ class SignIn extends React.Component {
             email: '',
             password: '',
             redirect: null,
-            signInMessage: ''
+            signInMessage: '' 
 
         }  
     }

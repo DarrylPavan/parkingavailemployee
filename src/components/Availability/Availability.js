@@ -28,25 +28,45 @@ class Availability extends React.Component {
 
     retrieveParkingLot = (parkingLotId) => {
         // Call /parkingLot passing in id in query string, GET, returns currentParkingLot
+        console.log(parkingLotId);
+        fetch(`http://localhost:8082/parkinglot?id=${parkingLotId}`)
+            .then(response => response.json())
+            .then(parkingLot => {
+                console.log(parkingLot);
+                return parkingLot;
+                
+            });
 
-        const parkingLot = {
+        /* const parkingLot = {
             id: 1,
             name: 'Lake Louise',
             numAvailableSpots: 52,
             capacity: 100
-        };
+        }; */
 
-        return parkingLot;
+        // return parkingLot;
 
     }
 
     componentDidMount(props) {       
-        let currentParkingLot = this.retrieveParkingLot(this.state.parkingLotId);
+        /* let currentParkingLot = this.retrieveParkingLot(this.state.parkingLotId);
+        console.log(currentParkingLot); */
 
-        this.setState({ currentParkingLot: currentParkingLot, 
+        fetch(`http://localhost:8082/parkinglot?id=${this.state.parkingLotId}`)
+            .then(response => response.json())
+            .then(currentParkingLot => {
+                console.log(currentParkingLot);
+                this.setState({ currentParkingLot: currentParkingLot, 
+                    capacity: currentParkingLot.capacity, 
+                    numAvailableSpots: currentParkingLot.capacity- currentParkingLot.stallsOccupied, 
+                    numOccupiedSpots: currentParkingLot.stallsOccupied 
+                });                    
+            });
+
+        /* this.setState({ currentParkingLot: currentParkingLot, 
                         capacity: currentParkingLot.capacity, 
-                        numAvailableSpots: currentParkingLot.numAvailableSpots, 
-                        numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots });
+                        numAvailableSpots: currentParkingLot.capacity- currentParkingLot.stallsOccupied, 
+                        numOccupiedSpots: currentParkingLot.stallsOccupied }); */
 
     }
 
@@ -118,31 +138,84 @@ class Availability extends React.Component {
     saveParkingLotChanges = () => {
 
        // Call /saveParkingLot passing id by query string, and only field that changed in body, PATCH, returns currentParkingLot
+        
+       const body = {
 
-       const currentParkingLot = {
-            id: 1,
-            name: 'Lake Louise',
-            numAvailableSpots: 152,
-            capacity: 200
-        }; 
+       }
+       if (this.state.activeOverrideField === 'capacity') {
+           body.capacity = this.state.capacity;
+       }
+
+       else if (this.state.activeOverrideField === 'numOccupiedSpots') {
+           body.stallsOccupied = this.state.numOccupiedSpots;
+       }
+
+       else if (this.state.activeOverrideField === 'numAvailableSpots') {
+            body.stallsOccupied = this.state.capacity - this.state.numAvailableSpots;
+
+       }
+
+
+       const patchOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',            
+            },
+
+            body: JSON.stringify (body)
+        }
+
+        fetch(`http://localhost:8082/saveparkinglot?id=${this.state.parkingLotId}`,patchOptions)
+            .then(response => response.json())
+            .then(currentParkingLot => {
+                console.log(currentParkingLot);
+                this.setState({
+                    currentParkingLot: currentParkingLot,
+                    capacity: currentParkingLot.capacity, 
+                    numOccupiedSpots: currentParkingLot.stallsOccupied,
+                    numAvailableSpots: currentParkingLot.capacity - currentParkingLot.stallsOccupied }); 
+            })
+
+    //    const currentParkingLot = {
+    //         id: 1,
+    //         name: 'Lake Louise',
+    //         numAvailableSpots: 152,
+    //         capacity: 200
+    //     }; 
     
-       this.setState({capacity: currentParkingLot.capacity, 
-                    numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, 
-                    numAvailableSpots: currentParkingLot.numAvailableSpots});
+    //    this.setState({capacity: currentParkingLot.capacity, 
+    //                 numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, 
+    //                 numAvailableSpots: currentParkingLot.numAvailableSpots});
     }
 
     resetParkingLot = () => {
       //Call /resetParkingLot, passing in id by query string, PUT, returns updated parking lot object
-      const currentParkingLot = {
+        const putOptions = {
+            method: 'PUT'           
+        }
+
+
+        fetch(`http://localhost:8082/resetparkinglot?id=${this.state.parkingLotId}`,putOptions)
+            .then(response => response.json())
+            .then(currentParkingLot => {
+                this.setState({capacity: currentParkingLot.capacity, 
+                    numOccupiedSpots: currentParkingLot.stallsOccupied, 
+                    numAvailableSpots: currentParkingLot.capacity-currentParkingLot.stallsOccupied,
+                    activeOverrideField: ''});
+
+            })
+            
+
+      /* const currentParkingLot = {
         id: 1,
         name: 'Lake Louise',
         numAvailableSpots: 100,
         capacity: 100
-        }; 
+        };  */
     
-        this.setState({capacity: currentParkingLot.capacity, 
+        /* this.setState({capacity: currentParkingLot.capacity, 
                     numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, 
-                    numAvailableSpots: currentParkingLot.numAvailableSpots, activeOverrideField: ''});
+                    numAvailableSpots: currentParkingLot.numAvailableSpots, activeOverrideField: ''}); */
 
     }
 
