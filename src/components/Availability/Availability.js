@@ -13,61 +13,31 @@ class Availability extends React.Component {
         this.state = {           
             parkingLotId: props.parkingLotId,
             activeOverrideField: '',
-            capacity: '',
-            numOccupiedSpots: '',
-            numAvailableSpots: '',
+            capacity: 0,
+            numOccupiedSpots: 0,
+            numAvailableSpots: 0,
 
             currentParkingLot: {
                 id: '',
                 name: '',
-                numAvailableSpots: '',
-                capacity: ''
+                stallsOccupied: 0,
+                capacity: 0
            },
         }
     }
-
-    retrieveParkingLot = (parkingLotId) => {
-        // Call /parkingLot passing in id in query string, GET, returns currentParkingLot
-        console.log(parkingLotId);
-        fetch(`http://localhost:8082/parkinglot?id=${parkingLotId}`)
-            .then(response => response.json())
-            .then(parkingLot => {
-                console.log(parkingLot);
-                return parkingLot;
-                
-            });
-
-        /* const parkingLot = {
-            id: 1,
-            name: 'Lake Louise',
-            numAvailableSpots: 52,
-            capacity: 100
-        }; */
-
-        // return parkingLot;
-
-    }
-
+    
     componentDidMount(props) {       
-        /* let currentParkingLot = this.retrieveParkingLot(this.state.parkingLotId);
-        console.log(currentParkingLot); */
-
+        
         fetch(`http://localhost:8082/parkinglot?id=${this.state.parkingLotId}`)
             .then(response => response.json())
             .then(currentParkingLot => {
-                console.log(currentParkingLot);
                 this.setState({ currentParkingLot: currentParkingLot, 
                     capacity: currentParkingLot.capacity, 
                     numAvailableSpots: currentParkingLot.capacity- currentParkingLot.stallsOccupied, 
                     numOccupiedSpots: currentParkingLot.stallsOccupied 
                 });                    
             });
-
-        /* this.setState({ currentParkingLot: currentParkingLot, 
-                        capacity: currentParkingLot.capacity, 
-                        numAvailableSpots: currentParkingLot.capacity- currentParkingLot.stallsOccupied, 
-                        numOccupiedSpots: currentParkingLot.stallsOccupied }); */
-
+    
     }
 
     engageOverride = (activeOverrideField) =>{
@@ -81,11 +51,10 @@ class Availability extends React.Component {
                 this.setState({capacity: this.state.currentParkingLot.capacity});
             }
             else if (activeOverrideField === 'numOccupiedSpots') {
-                this.setState({numOccupiedSpots: this.state.currentParkingLot.capacity 
-                                                - this.state.currentParkingLot.numAvailableSpots});
+                this.setState({numOccupiedSpots: this.state.currentParkingLot.stallsOccupied });
             }
             else if (activeOverrideField === 'numAvailableSpots') {
-                this.setState({numAvailableSpots: this.state.currentParkingLot.numAvailableSpots});
+                this.setState({numAvailableSpots: this.state.currentParkingLot.capacity- this.state.currentParkingLot.stallsOccupied});
             }
 
 
@@ -175,17 +144,7 @@ class Availability extends React.Component {
                     numOccupiedSpots: currentParkingLot.stallsOccupied,
                     numAvailableSpots: currentParkingLot.capacity - currentParkingLot.stallsOccupied }); 
             })
-
-    //    const currentParkingLot = {
-    //         id: 1,
-    //         name: 'Lake Louise',
-    //         numAvailableSpots: 152,
-    //         capacity: 200
-    //     }; 
     
-    //    this.setState({capacity: currentParkingLot.capacity, 
-    //                 numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, 
-    //                 numAvailableSpots: currentParkingLot.numAvailableSpots});
     }
 
     resetParkingLot = () => {
@@ -194,29 +153,18 @@ class Availability extends React.Component {
             method: 'PUT'           
         }
 
-
         fetch(`http://localhost:8082/resetparkinglot?id=${this.state.parkingLotId}`,putOptions)
             .then(response => response.json())
             .then(currentParkingLot => {
-                this.setState({capacity: currentParkingLot.capacity, 
+                this.setState({currentParkingLot: currentParkingLot,
+                    capacity: currentParkingLot.capacity, 
                     numOccupiedSpots: currentParkingLot.stallsOccupied, 
                     numAvailableSpots: currentParkingLot.capacity-currentParkingLot.stallsOccupied,
                     activeOverrideField: ''});
 
             })
-            
-
-      /* const currentParkingLot = {
-        id: 1,
-        name: 'Lake Louise',
-        numAvailableSpots: 100,
-        capacity: 100
-        };  */
-    
-        /* this.setState({capacity: currentParkingLot.capacity, 
-                    numOccupiedSpots: currentParkingLot.capacity - currentParkingLot.numAvailableSpots, 
-                    numAvailableSpots: currentParkingLot.numAvailableSpots, activeOverrideField: ''}); */
-
+           
+      
     }
 
     incrementNumAvailableSpots = () => {
@@ -277,9 +225,9 @@ class Availability extends React.Component {
                                 setStateValueForOverrideField = { this.setStateValueForOverrideField } 
                                 saveParkingLotChanges = { this.saveParkingLotChanges } 
                                 resetParkingLot = { this.resetParkingLot } 
-                                getStateCapacity = { this.getStateCapacity } 
+                                /* getStateCapacity = { this.getStateCapacity } 
                                 getStateNumAvailableSpots = { this.getStateNumAvailableSpots } 
-                                getStateNumOccupiedSpots = { this.getStateNumOccupiedSpots } 
+                                getStateNumOccupiedSpots = { this.getStateNumOccupiedSpots }  */
                                 capacity = { this.state.capacity } 
                                 numAvailableSpots = { this.state.numAvailableSpots} 
                                 numOccupiedSpots = { this.state.numOccupiedSpots } /> 
