@@ -18,7 +18,7 @@ class Availability extends React.Component {
             numAvailableSpots: 0,
 
             currentParkingLot: {
-                id: '',
+                _id: '',
                 name: '',
                 stallsOccupied: 0,
                 capacity: 0
@@ -216,7 +216,7 @@ class Availability extends React.Component {
                 
                     
                         { 
-                            this.state.currentParkingLot.id &&  
+                            this.state.currentParkingLot._id &&  
                             
                             <Override engageOverride = { this.engageOverride } 
                                 getOverrideButtonColor = { this.getOverrideButtonColor } 

@@ -19,7 +19,7 @@ class ParkingLots extends React.Component {
 
     componentDidMount(props) {
         // Call /parkingLots, GET, returns array of parking lot objects
-        fetch('http://localhost:8082/parkinglots')
+        fetch('http://localhost:8082/parkinglotscouch')
             .then(response => response.json())
             .then(parkingLots => {
                 this.setState({ parkingLots: parkingLots });
@@ -74,7 +74,7 @@ class ParkingLots extends React.Component {
                             this.state.parkingLots.map((parkingLot, i) => {
                                 return (
                                     <ParkingLot                
-                                        id={parkingLot.id}
+                                        _id={parkingLot._id}
                                         name={parkingLot.name}  
                                         redirectToAvailability = {this.redirectToAvailability}            
                                         />

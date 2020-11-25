@@ -42,10 +42,10 @@ class SignIn extends React.Component {
             })
         }
 
-        fetch('http://localhost:8082/signin', postOptions)
+        fetch('http://localhost:8082/signincouch', postOptions)
             .then(response => response.json())
             .then(user =>{
-                if (user.id) {
+                if (user._id) {
                     this.props.loadUser(user);
                     this.props.setSignIn(true);
                     this.setState({signInMessage:''})

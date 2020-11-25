@@ -15,7 +15,7 @@ class App extends Component {
       parkingLotId: '',
       isSignedIn: false,
       user: {
-        id: '',
+        _id: '',
         name: '',
         email: ''
       },
@@ -43,11 +43,13 @@ class App extends Component {
   }
 
   loadUser = (user) => {
-    this.setState({user: {
-      id: user.id,
-      name: user.name,
-      email: user.email
-    }});
+    // let user = {
+    //   id: signedInUser.id,
+    //   name: signedInUser.name,
+    //   email: signedInUser.email
+    // };
+
+    this.setState({user: user});
   }
 
   render() {
