@@ -31,6 +31,8 @@ class ParkingLots extends React.Component {
     }
 
     redirectToAvailability = (parkingLotId) => {
+        console.log('redirectToAvailability', parkingLotId);
+
         // The is sets parking lot ID in App.js
         this.props.onParkingLotChange(parkingLotId);
         // Changing the value redirect and parkinglot ID  see this state above        
@@ -42,6 +44,7 @@ class ParkingLots extends React.Component {
     render() {
 
         if (this.state.redirect) {
+            console.log('ParkingLots render', this.state.redirect);
             return  <Redirect to={{ pathname: this.state.redirect }}/>
         }
 

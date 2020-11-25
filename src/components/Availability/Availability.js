@@ -27,8 +27,8 @@ class Availability extends React.Component {
     }
     
     componentDidMount(props) {       
-        
-        fetch(`http://localhost:8082/parkinglot?id=${this.state.parkingLotId}`)
+        console.log(`http://localhost:8082/parkinglotcouch?_id=${this.state.parkingLotId}`);
+        fetch(`http://localhost:8082/parkinglotcouch?_id=${this.state.parkingLotId}`)
             .then(response => response.json())
             .then(currentParkingLot => {
                 this.setState({ currentParkingLot: currentParkingLot, 

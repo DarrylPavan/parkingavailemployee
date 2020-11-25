@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   onParkingLotChange = (parkingLotId) => {
+    console.log('onParkingLotChange', parkingLotId);
     this.setState({parkingLotId: parkingLotId});
   }
 
@@ -43,12 +44,6 @@ class App extends Component {
   }
 
   loadUser = (user) => {
-    // let user = {
-    //   id: signedInUser.id,
-    //   name: signedInUser.name,
-    //   email: signedInUser.email
-    // };
-
     this.setState({user: user});
   }
 
@@ -80,7 +75,7 @@ class App extends Component {
 
               <Route path="/parkingavailemployee/availability" 
                 render={props => 
-                  this.state.parkingLotId > 0 && this.state.isSignedIn ? 
+                  this.state.parkingLotId !='' && this.state.isSignedIn ? 
                   <Availability {...props} parkingLotId = {this.state.parkingLotId} />:
                   <Redirect to={{ pathname: '/parkingavailemployee/parkinglots' }} />
                 }/>
