@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import './ParkingLots.css';
-import Redirect from 'react-router-dom/Redirect';
+import { Redirect } from 'react-router-dom';
 import ParkingLot from '../ParkingLot/ParkingLot';
 
 class ParkingLots extends React.Component {
@@ -79,7 +79,8 @@ class ParkingLots extends React.Component {
                                     <ParkingLot                
                                         _id={parkingLot._id}
                                         name={parkingLot.name}  
-                                        redirectToAvailability = {this.redirectToAvailability}            
+                                        redirectToAvailability = {this.redirectToAvailability}
+                                        key={parkingLot._id}           
                                         />
                                     );
                             })

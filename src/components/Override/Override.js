@@ -44,7 +44,7 @@ class Override extends React.Component {
     render() {
 
        return(
-        <Row>
+        <Row ref={this.wrapper}>
 
             {/* Custom Button CSS  */}
             <style type="text/css">
@@ -133,7 +133,7 @@ class Override extends React.Component {
                     </Col>
                 </Row>
             </Col>
-            <Modal show={this.state.showSaveConfirmation} onHide={this.closeSaveConfirmation}>
+            <Modal animation={false} show={this.state.showSaveConfirmation} onHide={this.closeSaveConfirmation}>
                 <Modal.Header closeButton>
                     <Modal.Title>Save Changes</Modal.Title>
                 </Modal.Header>
@@ -148,7 +148,7 @@ class Override extends React.Component {
                 </Modal.Footer>
             </Modal> 
 
-            <Modal show={this.state.showResetConfirmation} onHide={this.closeResetConfirmation}>
+            <Modal animation={false} show={this.state.showResetConfirmation} onHide={this.closeResetConfirmation}>
                 <Modal.Header closeButton>
                     <Modal.Title>Reset to Default</Modal.Title>
                 </Modal.Header>

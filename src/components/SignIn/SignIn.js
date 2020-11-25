@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Redirect from 'react-router-dom/Redirect';
+import { Redirect } from 'react-router-dom';
 import './SignIn.css';
 
 class SignIn extends React.Component {

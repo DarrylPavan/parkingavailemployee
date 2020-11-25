@@ -75,7 +75,7 @@ class App extends Component {
 
               <Route path="/parkingavailemployee/availability" 
                 render={props => 
-                  this.state.parkingLotId !='' && this.state.isSignedIn ? 
+                  this.state.parkingLotId !=='' && this.state.isSignedIn ? 
                   <Availability {...props} parkingLotId = {this.state.parkingLotId} />:
                   <Redirect to={{ pathname: '/parkingavailemployee/parkinglots' }} />
                 }/>
