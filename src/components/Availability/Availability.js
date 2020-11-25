@@ -134,7 +134,7 @@ class Availability extends React.Component {
             body: JSON.stringify (body)
         }
 
-        fetch(`http://localhost:8082/saveparkinglot?id=${this.state.parkingLotId}`,patchOptions)
+        fetch(`http://localhost:8082/saveparkinglotcouch?_id=${this.state.parkingLotId}`,patchOptions)
             .then(response => response.json())
             .then(currentParkingLot => {
                 console.log(currentParkingLot);
@@ -153,7 +153,7 @@ class Availability extends React.Component {
             method: 'PUT'           
         }
 
-        fetch(`http://localhost:8082/resetparkinglot?id=${this.state.parkingLotId}`,putOptions)
+        fetch(`http://localhost:8082/resetparkinglotcouch?_id=${this.state.parkingLotId}`,putOptions)
             .then(response => response.json())
             .then(currentParkingLot => {
                 this.setState({currentParkingLot: currentParkingLot,
@@ -176,7 +176,7 @@ class Availability extends React.Component {
             },
             
         }
-        fetch(`http://localhost:8082/decrementstallsoccupied?id=${this.state.parkingLotId}`,patchOptions)
+        fetch(`http://localhost:8082/decrementstallsoccupiedcouch?_id=${this.state.parkingLotId}`,patchOptions)
             .then(response => response.json())
             .then(currentParkingLot => {
                 this.setState({ currentParkingLot: currentParkingLot, 
@@ -196,7 +196,7 @@ class Availability extends React.Component {
             },
             
         }
-        fetch(`http://localhost:8082/incrementstallsoccupied?id=${this.state.parkingLotId}`,patchOptions)
+        fetch(`http://localhost:8082/incrementstallsoccupiedcouch?_id=${this.state.parkingLotId}`,patchOptions)
             .then(response => response.json())
             .then(currentParkingLot => {
                 this.setState({ currentParkingLot: currentParkingLot, 
